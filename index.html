@@ -128,69 +128,118 @@
             
             <div><span class="retry-link" onclick="initQuiz()">↺ 再練一次這組單字</span></div>
 
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdNkem-vuwWTDc5eEfhv4FlqpubNv7dsoY0uFQEcv4c5rCtyg/viewform?usp=header" class="cta-button" target="_blank">前往👉實戰驗收：📝多益模擬題型</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdNkem-vuwWTDc5eEfhv4FlqpubNv7dsoY0uFQEcv4c5rCtyg/viewform?usp=header" class="cta-button" target="_blank">前往👉下一關:中階情境演練</a>
 
             <div class="footer-upsell">
-                💡 這套「直覺單字+實戰刷題」模式很有效吧!完整多益衝刺計畫已在蝦皮上架。<br>
-                <a href="https://shopee.tw/YOUR_LINK" class="shopee-link" target="_blank">點此前往蝦皮賣場看更多</a>
+                這套「單字直覺」練習模式很有效吧!完整多益衝刺計畫已上架。<br>
+                <a href="https://shopee.tw/YOUR_LINK" class="shopee-link" target="_blank">點此前往看更多</a>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-// EP14 核心資料庫：無首字母提示、移除所有字尾變化的純挖空版本
+// EP14 核心資料庫 (326 - 350 共 25 字，正誤交叉設計，誘答中文均取材自本集清單)
 const rawData = [
-    { type: "單字辨析", word: "<u><b>explore</b></u> new business opportunities", show: "探索新的商機", ans: true, feedback: "explore 是動詞「調查、探索」。" },
-    { type: "句型搭配", word: "explore", show: "______ new business opportunities / 填入：explore", ans: true, feedback: "應填入 explore。" },
-    { type: "單字辨析", word: "<u><b>found</b></u> a technology company", show: "尋找科技公司", ans: false, feedback: "found 在此作為動詞原形，意為「設立、創立」。" },
-    { type: "句型搭配", word: "found", show: "______ a technology company / 填入：found", ans: true, feedback: "應填入 found。" },
-    { type: "單字辨析", word: "basic <u><b>functions</b></u> of the software", show: "軟體的基本功能", ans: true, feedback: "function 指「功能」，在此作複數。" },
-    { type: "句型搭配", word: "function", show: "basic ______ of the software / 填入：function", ans: true, feedback: "應填入 function (原句作複數 functions)。" },
-    { type: "單字辨析", word: "have a positive <u><b>impact</b></u> on customers", show: "對顧客產生正面影響", ans: true, feedback: "impact 指「衝擊、影響」，常與 on 連用。" },
-    { type: "句型搭配", word: "impact", show: "have a positive ______ on customers / 填入：shuttle", ans: false, feedback: "應填入 impact。" },
-    { type: "單字辨析", word: "an <u><b>amazing</b></u> success", show: "平凡的成功", ans: false, feedback: "amazing 意為「驚人的、意想不到的」。" },
-    { type: "句型搭配", word: "amazing", show: "an ______ success / 填入：amazing", ans: true, feedback: "應填入 amazing。" },
-    { type: "單字辨析", word: "<u><b>assure</b></u> clients that their data is secure", show: "向客戶保證資料安全", ans: true, feedback: "assure 意為「向...保證」。" },
-    { type: "句型搭配", word: "assure", show: "______ clients that their data is secure / 填入：found", ans: false, feedback: "應填入 assure。" },
-    { type: "單字辨析", word: "Thank you for your <u><b>cooperation</b></u>.", show: "感謝您的合作", ans: true, feedback: "cooperation 是名詞「合作、協力」。" },
-    { type: "句型搭配", word: "cooperation", show: "Thank you for your ______ . / 填入：cooperation", ans: true, feedback: "應填入 cooperation。" },
-    { type: "單字辨析", word: "a rise in product <u><b>popularity</b></u>", show: "產品成本上升", ans: false, feedback: "popularity 是名詞「人氣、普及度」。" },
-    { type: "句型搭配", word: "popularity", show: "a rise in product ______ / 填入：popularity", ans: true, feedback: "應填入 popularity。" },
-    { type: "單字辨析", word: "a construction <u><b>permit</b></u>", show: "建築許可證", ans: true, feedback: "permit 在此作可數名詞，指「許可證」。" },
-    { type: "句型搭配", word: "permit", show: "a construction ______ / 填入：factor", ans: false, feedback: "應填入 permit。" },
-    { type: "單字辨析", word: "<u><b>solve</b></u> a problem", show: "解決問題", ans: true, feedback: "solve 是動詞「解決（困難、問題）」。" },
-    { type: "句型搭配", word: "solve", show: "______ a problem / 填入：solve", ans: true, feedback: "應填入 solve。" },
-    { type: "單字辨析", word: "<u><b>vote</b></u> in favor of the proposal", show: "反對提案", ans: false, feedback: "vote in favor of 是「對...投贊成票」。" },
-    { type: "句型搭配", word: "vote", show: "______ in favor of the proposal / 填入：vote", ans: true, feedback: "應填入 vote。" },
-    { type: "單字辨析", word: "locally grown <u><b>crops</b></u>", show: "當地栽培的作物", ans: true, feedback: "crop 指「作物」，在此作複數。" },
-    { type: "句型搭配", word: "crop", show: "locally grown ______ / 填入：permit", ans: false, feedback: "應填入 crop (原句為複數 crops)。" },
-    { type: "單字辨析", word: "There are no hotels in this <u><b>neighborhood</b></u>.", show: "這附近沒有旅館", ans: true, feedback: "neighborhood 指「鄰里、鄰近地區」。" },
-    { type: "句型搭配", word: "neighborhood", show: "There are no hotels in this ______ . / 填入：neighborhood", ans: true, feedback: "應填入 neighborhood。" },
-    { type: "單字辨析", word: "a <u><b>permanent</b></u> job position", show: "臨時職位", ans: false, feedback: "permanent 意為「正職的、長久的、永久的」。" },
-    { type: "句型搭配", word: "permanent", show: "a ______ job position / 填入：permanent", ans: true, feedback: "應填入 permanent。" },
-    { type: "單字辨析", word: "We <u><b>regret</b></u> to inform you of the delay.", show: "我們很遺憾通知您延誤的消息", ans: true, feedback: "regret to inform 常用於商務書信「遺憾地通知」。" },
-    { type: "句型搭配", word: "regret", show: "We ______ to inform you of the delay. / 填入：explore", ans: false, feedback: "應填入 regret。" },
-    { type: "單字辨析", word: "<u><b>slightly</b></u> increased from 5 to 8 percent", show: "稍微、略微增加", ans: true, feedback: "slightly 是副詞「稍微、略微地」。" },
-    { type: "句型搭配", word: "slightly", show: "______ increased from 5 to 8 percent / 填入：slightly", ans: true, feedback: "應填入 slightly。" },
-    { type: "單字辨析", word: "The system is very <u><b>complicated</b></u>.", show: "系統非常簡便", ans: false, feedback: "complicated 是形容詞「複雜的」。" },
-    { type: "句型搭配", word: "complicated", show: "The system is very ______ . / 填入：complicated", ans: true, feedback: "應填入 complicated。" },
-    { type: "單字辨析", word: "key <u><b>factors</b></u>", show: "重要因素", ans: true, feedback: "factor 是名詞「因素、要素」。" },
-    { type: "句型搭配", word: "factor", show: "key ______ / 填入：impact", ans: false, feedback: "應填入 factor (原句作複數 factors)。" },
-    { type: "單字辨析", word: "<u><b>favorable</b></u> feedback from clients", show: "顧客的正面/稱讚的回饋", ans: true, feedback: "favorable 意為「稱讚的、正面的、有利的」。" },
-    { type: "句型搭配", word: "favorable", show: "______ feedback from clients / 填入：favorable", ans: true, feedback: "應填入 favorable。" },
-    { type: "單字辨析", word: "<u><b>guarantee</b></u> fast delivery to all regions", show: "限制快速送達", ans: false, feedback: "guarantee 是動詞「保證、擔保」。" },
-    { type: "句型搭配", word: "guarantee", show: "______ fast delivery to all regions / 填入：guarantee", ans: true, feedback: "應填入 guarantee。" },
-    { type: "單字辨析", word: "<u><b>mechanical</b></u> problem with the engine", show: "引擎的機械故障", ans: true, feedback: "mechanical 是形容詞「機械的」。" },
-    { type: "句型搭配", word: "mechanical", show: "______ problem with the engine / 填入：complicated", ans: false, feedback: "應填入 mechanical。" },
-    { type: "單字辨析", word: "give a high <u><b>priority</b></u> for safety", show: "將安全列為高優先事項", ans: true, feedback: "priority 是名詞「優先權、優先事項」。" },
-    { type: "句型搭配", word: "priority", show: "give a high ______ for safety / 填入：priority", ans: true, feedback: "應填入 priority。" },
-    { type: "單字辨析", word: "<u><b>relatively</b></u> recent trend", show: "完全過時的流行", ans: false, feedback: "relatively 是副詞「相較之下、相對地」。" },
-    { type: "句型搭配", word: "relatively", show: "______ recent trend / 填入：relatively", ans: true, feedback: "應填入 relatively。" },
-    { type: "單字辨析", word: "natural <u><b>resource</b></u> management", show: "天然資源管理", ans: true, feedback: "resource 指「資源」。" },
-    { type: "句型搭配", word: "resource", show: "natural ______ management / 填入：cooperation", ans: false, feedback: "應填入 resource。" },
-    { type: "單字辨析", word: "free airport <u><b>shuttle</b></u> service", show: "免費機場接駁服務", ans: true, feedback: "shuttle service 指「接駁車服務」。" },
-    { type: "句型搭配", word: "shuttle", show: "free airport ______ service / 填入：shuttle", ans: true, feedback: "應填入 shuttle。" }
+    // 326. explore (辨析: True / 句型: False)
+    { id: "explore", type: "單字辨析", word: "<u><b>explore</b></u> new business opportunities", show: "調查、探索", ans: true, feedback: "explore 是動詞「調查、探索」。" },
+    { id: "explore", type: "句型搭配", show: "______ new business opportunities / 填入：solve", ans: false, feedback: "應填入 explore。" },
+
+    // 327. found (辨析: False / 句型: True)
+    { id: "found", type: "單字辨析", word: "<u><b>found</b></u> a technology company", show: "對提案投贊成票", ans: false, feedback: "found 是動詞「設立、創立」。" },
+    { id: "found", type: "句型搭配", show: "______ a technology company / 填入：found", ans: true, feedback: "應填入 found。" },
+
+    // 328. function (辨析: True / 句型: False)
+    { id: "function", type: "單字辨析", word: "basic <u><b>functions</b></u> of the software", show: "功能(或起作用)", ans: true, feedback: "function 是名詞「功能」、動詞「起作用」。" },
+    { id: "function", type: "句型搭配", show: "basic ______ of the software / 填入：shuttle", ans: false, feedback: "應填入 functions。" },
+
+    // 329. impact (辨析: False / 句型: True)
+    { id: "impact", type: "單字辨析", word: "have a positive <u><b>impact</b></u> on customers", show: "驚人的", ans: false, feedback: "impact 是名詞「衝擊、影響」。" },
+    { id: "impact", type: "句型搭配", show: "have a positive ______ on customers / 填入：impact", ans: true, feedback: "應填入 impact。" },
+
+    // 330. amazing (辨析: True / 句型: False)
+    { id: "amazing", type: "單字辨析", word: "an <u><b>amazing</b></u> success", show: "驚人的", ans: true, feedback: "amazing 是形容詞「驚人的」。" },
+    { id: "amazing", type: "句型搭配", show: "an ______ success / 填入：permanent", ans: false, feedback: "應填入 amazing。" },
+
+    // 331. assure (辨析: False / 句型: True)
+    { id: "assure", type: "單字辨析", word: "<u><b>assure</b></u> clients that their data is secure", show: "合作、協力", ans: false, feedback: "assure 是動詞「向...保證」。" },
+    { id: "assure", type: "句型搭配", show: "______ clients that their data is secure / 填入：assure", ans: true, feedback: "應填入 assure。" },
+
+    // 332. cooperation (辨析: True / 句型: False)
+    { id: "cooperation", type: "單字辨析", word: "Thank you for your <u><b>cooperation</b></u>.", show: "合作、協力", ans: true, feedback: "cooperation 是名詞「合作、協力」。" },
+    { id: "cooperation", type: "句型搭配", show: "Thank you for your ______. / 填入：factor", ans: false, feedback: "應填入 cooperation。" },
+
+    // 333. popularity (辨析: False / 句型: True)
+    { id: "popularity", type: "單字辨析", word: "a rise in product <u><b>popularity</b></u>", show: "許可(證)", ans: false, feedback: "popularity 是名詞「人氣」。" },
+    { id: "popularity", type: "句型搭配", show: "a rise in product ______ / 填入：popularity", ans: true, feedback: "應填入 popularity。" },
+
+    // 334. permit (辨析: True / 句型: False)
+    { id: "permit", type: "單字辨析", word: "a construction <u><b>permit</b></u>", show: "許可(證)", ans: true, feedback: "permit 是名詞「許可(證)」。" },
+    { id: "permit", type: "句型搭配", show: "a construction ______ / 填入：neighborhood", ans: false, feedback: "應填入 permit。" },
+
+    // 335. solve (辨析: False / 句型: True)
+    { id: "solve", type: "單字辨析", word: "<u><b>solve</b></u> a problem", show: "天然資源", ans: false, feedback: "solve 是動詞「解決」。" },
+    { id: "solve", type: "句型搭配", show: "______ a problem / 填入：solve", ans: true, feedback: "應填入 solve。" },
+
+    // 336. vote (辨析: True / 句型: False)
+    { id: "vote", type: "單字辨析", word: "<u><b>vote</b></u> in favor of the proposal", show: "投票", ans: true, feedback: "vote 是動詞「投票」。" },
+    { id: "vote", type: "句型搭配", show: "______ in favor of the proposal / 填入：explore", ans: false, feedback: "應填入 vote。" },
+
+    // 337. crop (辨析: False / 句型: True)
+    { id: "crop", type: "單字辨析", word: "locally grown <u><b>crops</b></u>", show: "遺憾", ans: false, feedback: "crop 是名詞「作物;收成、收穫量」。" },
+    { id: "crop", type: "句型搭配", show: "locally grown ______ / 填入：crops", ans: true, feedback: "應填入 crops。" },
+
+    // 338. neighborhood (辨析: True / 句型: False)
+    { id: "neighborhood", type: "單字辨析", word: "There are no hotels in this <u><b>neighborhood</b></u>.", show: "鄰里、鄰近地區", ans: true, feedback: "neighborhood 是名詞「鄰里、鄰近地區」。" },
+    { id: "neighborhood", type: "句型搭配", show: "There are no hotels in this ______. / 填入：shuttle", ans: false, feedback: "應填入 neighborhood。" },
+
+    // 339. permanent (辨析: False / 句型: True)
+    { id: "permanent", type: "單字辨析", word: "a <u><b>permanent</b></u> job position", show: "稍微、略微", ans: false, feedback: "permanent 是形容詞「正職的;長久的」。" },
+    { id: "permanent", type: "句型搭配", show: "a ______ job position / 填入：permanent", ans: true, feedback: "應填入 permanent。" },
+
+    // 340. regret (辨析: True / 句型: False)
+    { id: "regret", type: "單字辨析", word: "We <u><b>regret</b></u> to inform you of the delay.", show: "遺憾", ans: true, feedback: "regret 是動詞「遺憾」。" },
+    { id: "regret", type: "句型搭配", show: "We ______ to inform you of the delay. / 填入：amazing", ans: false, feedback: "應填入 regret。" },
+
+    // 341. slightly (辨析: False / 句型: True)
+    { id: "slightly", type: "單字辨析", word: "<u><b>slightly</b></u> increased from 5 to 8 percent", show: "複雜的", ans: false, feedback: "slightly 是副詞「稍微、略微」。" },
+    { id: "slightly", type: "句型搭配", show: "______ increased from 5 to 8 percent / 填入：slightly", ans: true, feedback: "應填入 slightly。" },
+
+    // 342. complicated (辨析: True / 句型: False)
+    { id: "complicated", type: "單字辨析", word: "The system is very <u><b>complicated</b></u>.", show: "複雜的", ans: true, feedback: "complicated 是形容詞「複雜的」。" },
+    { id: "complicated", type: "句型搭配", show: "The system is very ______. / 填入：permit", ans: false, feedback: "應填入 complicated。" },
+
+    // 343. factor (辨析: False / 句型: True)
+    { id: "factor", type: "單字辨析", word: "key <u><b>factors</b></u>", show: "稱讚的;正面的", ans: false, feedback: "factor 是名詞「因素、要素」。" },
+    { id: "factor", type: "句型搭配", show: "key ______ / 填入：factors", ans: true, feedback: "應填入 factors。" },
+
+    // 344. favorable (辨析: True / 句型: False)
+    { id: "favorable", type: "單字辨析", word: "<u><b>favorable</b></u> feedback from clients", show: "稱讚的;正面的;有利的", ans: true, feedback: "favorable 是形容詞「稱讚的;正面的;有利的」。" },
+    { id: "favorable", type: "句型搭配", show: "______ feedback from clients / 填入：slightly", ans: false, feedback: "應填入 favorable。" },
+
+    // 345. guarantee (辨析: False / 句型: True)
+    { id: "guarantee", type: "單字辨析", word: "<u><b>guarantee</b></u> fast delivery to all regions", show: "機械的", ans: false, feedback: "guarantee 是動詞「保證」。" },
+    { id: "guarantee", type: "句型搭配", show: "______ fast delivery to all regions / 填入：guarantee", ans: true, feedback: "應填入 guarantee。" },
+
+    // 346. mechanical (辨析: True / 句型: False)
+    { id: "mechanical", type: "單字辨析", word: "<u><b>mechanical</b></u> problem with the engine", show: "機械的", ans: true, feedback: "mechanical 是形容詞「機械的」。" },
+    { id: "mechanical", type: "句型搭配", show: "______ problem with the engine / 填入：favorable", ans: false, feedback: "應填入 mechanical。" },
+
+    // 347. priority (辨析: False / 句型: True)
+    { id: "priority", type: "單字辨析", word: "give a high <u><b>priority</b></u> for safety", show: "相較之下", ans: false, feedback: "priority 是名詞「優先(權)」。" },
+    { id: "priority", type: "句型搭配", show: "give a high ______ for safety / 填入：priority", ans: true, feedback: "應填入 priority。" },
+
+    // 348. relatively (辨析: True / 句型: False)
+    { id: "relatively", type: "單字辨析", word: "<u><b>relatively</b></u> recent trend", show: "相較之下", ans: true, feedback: "relatively 是副詞「相較之下」。" },
+    { id: "relatively", type: "句型搭配", show: "______ recent trend / 填入：slightly", ans: false, feedback: "應填入 relatively。" },
+
+    // 349. resource (辨析: False / 句型: True)
+    { id: "resource", type: "單字辨析", word: "natural <u><b>resource</b></u> management", show: "接駁車", ans: false, feedback: "resource 是名詞「資源」。" },
+    { id: "resource", type: "句型搭配", show: "natural ______ management / 填入：resource", ans: true, feedback: "應填入 resource。" },
+
+    // 350. shuttle (辨析: True / 句型: False)
+    { id: "shuttle", type: "單字辨析", word: "free airport <u><b>shuttle</b></u> service", show: "接駁車；短程往返的交通線", ans: true, feedback: "shuttle 是名詞「接駁車；短程往返的交通運輸線」。" },
+    { id: "shuttle", type: "句型搭配", show: "free airport ______ service / 填入：impact", ans: false, feedback: "應填入 shuttle。" }
 ];
 
 let questions = [];
@@ -199,9 +248,36 @@ let score = 0;
 let userHistoryList = []; 
 
 function initQuiz() {
-    const shuffled = [...rawData].sort(() => 0.5 - Math.random());
-    questions = shuffled.slice(0, 5);
-    currentIndex = 0; score = 0; userHistoryList = [];
+    const groups = {};
+    rawData.forEach(item => {
+        if (!groups[item.id]) groups[item.id] = [];
+        groups[item.id].push(item);
+    });
+
+    const wordIds = Object.keys(groups);
+    const shuffledIds = wordIds.sort(() => 0.5 - Math.random()).slice(0, 5);
+
+    // 強制混合題型設計：確保「單字辨析」與「句型搭配」各半（最少各兩題），不可能出現單一題型充斥的情況
+    const typesToAssign = ["單字辨析", "單字辨析", "句型搭配", "句型搭配", Math.random() > 0.5 ? "單字辨析" : "句型搭配"];
+    typesToAssign.sort(() => 0.5 - Math.random());
+
+    let selectedQuestions = [];
+    shuffledIds.forEach((id, index) => {
+        const targetType = typesToAssign[index];
+        const questionOfTargetType = groups[id].find(q => q.type === targetType);
+        if (questionOfTargetType) {
+            selectedQuestions.push(questionOfTargetType);
+        } else {
+            const randomPick = groups[id][Math.floor(Math.random() * groups[id].length)];
+            selectedQuestions.push(randomPick);
+        }
+    });
+
+    questions = selectedQuestions.sort(() => 0.5 - Math.random());
+    
+    currentIndex = 0; 
+    score = 0; 
+    userHistoryList = [];
     document.getElementById('main-banner').classList.remove('compact');
     document.getElementById('intro-area').style.display = 'block';
     document.getElementById('quiz-section').style.display = 'block';
@@ -215,15 +291,21 @@ function loadQuestion() {
     document.getElementById('q-count').innerText = `題目 ${currentIndex + 1} / 5`;
     document.getElementById('progress').style.width = `${((currentIndex + 1) / 5) * 100}%`;
     document.getElementById('type-tag').innerText = q.type;
-    const wordEl = document.getElementById('word');
     
+    const wordEl = document.getElementById('word');
+    const contentEl = document.getElementById('content');
+    
+    // 清空並重新渲染，徹底消除 undefined 交叉污染與單字殘留 Bug
+    wordEl.innerHTML = '';
+    contentEl.innerText = '';
+
     if (q.type === "句型搭配") {
-        wordEl.style.display = 'none';
-        document.getElementById('content').innerText = q.show;
+        wordEl.style.display = 'none'; 
+        contentEl.innerText = q.show; 
     } else {
         wordEl.style.display = 'block';
         wordEl.innerHTML = q.word; 
-        document.getElementById('content').innerText = `中文意思：${q.show}`;
+        contentEl.innerText = `核心單字中文意思：${q.show}`;
     }
     
     document.getElementById('feedback').style.display = 'none';
@@ -237,7 +319,13 @@ function handleAnswer(userAns) {
     document.querySelectorAll('.btn-group button').forEach(b => b.disabled = true);
     feedback.style.display = 'block';
     const isCorrect = (userAns === q.ans);
-    userHistoryList.push({ word: q.word, isCorrect: isCorrect, feedback: q.feedback });
+    
+    userHistoryList.push({ 
+        word: q.type === "句型搭配" ? "句型搭配" : q.word, 
+        isCorrect: isCorrect, 
+        feedback: q.feedback 
+    });
+    
     if (isCorrect) {
         score += 20;
         feedback.innerText = "✅ " + q.feedback;
@@ -265,11 +353,11 @@ function showResult() {
     const now = new Date();
     const timeStr = `${now.getMonth() + 1}/${now.getDate()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
 
-    // 使用獨立的 EP14 儲存欄位
-    let history = JSON.parse(localStorage.getItem('toeic_history_ep14_v3')) || [];
+    // 使用 EP14 專屬快取緩存 Key 值
+    let history = JSON.parse(localStorage.getItem('toeic_history_ep14_v1')) || [];
     history.unshift({ score: score, time: timeStr });
     if(history.length > 5) history.pop();
-    localStorage.setItem('toeic_history_ep14_v3', JSON.stringify(history));
+    localStorage.setItem('toeic_history_ep14_v1', JSON.stringify(history));
     renderHistoryList(history);
 
     document.getElementById('review-list').innerHTML = userHistoryList.map(item => `
@@ -296,7 +384,7 @@ function renderHistoryList(history) {
 
 function confirmClear() {
     if (confirm("確定要清除所有練習紀錄嗎？")) {
-        localStorage.removeItem('toeic_history_ep14_v3');
+        localStorage.removeItem('toeic_history_ep14_v1');
         renderHistoryList([]);
     }
 }
